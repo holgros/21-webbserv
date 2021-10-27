@@ -13,7 +13,7 @@ if (!$conn) {
 echo "Connected successfully<br>";
 
 // STEG 2: skicka SQL till databasen - se https://www.w3schools.com/php/php_mysql_select.asp
-$sql = "SELECT * FROM elever"; // ÄNDRA IFALL DU HAR ANDRA NAMN PÅ TABELL
+$sql = "SELECT * FROM elever"; // ÄNDRA IFALL DU HAR ANNAT NAMN PÅ TABELL
 $result = $conn->query($sql);
 // skriv ut resultatet på webbsidan
 if ($result->num_rows > 0) {
