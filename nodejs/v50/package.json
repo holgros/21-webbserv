@@ -1,0 +1,15 @@
+{
+  "name": "v50",
+  "version": "1.0.0",
+  "description": "Min första Node-applikation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Node",
+    "webbserverprogrammering"
+  ],
+  "author": "Holger",
+  "license": "ISC"
+}
