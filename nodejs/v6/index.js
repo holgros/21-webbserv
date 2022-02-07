@@ -19,4 +19,9 @@ con.connect(function(err) {
         console.log(result[0]); // skriver ut första raden (objektet) i tabellen 
         console.log(result[0].fornamn); // skriver ut attributet "fornamn" (förutsatt att detta finns - ändra om din tabell ser annorlunda ut)
     });
+    // stäng uppkopplingen, kan vara önskvärt ifall man inte vill tvångsavsluta programmet i konsolen
+    con.end(function(err) {
+        if (err) throw err;         // felhantering
+        console.log("Stänger uppkopplingen.");
+    });
 });
