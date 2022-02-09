@@ -26,13 +26,6 @@ con.connect(function(err) {
     });
 });
 
-
-
-
-
-
-
-
 // Skriv ut databastabellens innehåll på en webbsida
 // Börja med att starta webbservern och definiera en route (som vi gjort flera gånger tidigare)
 const express = require("express");
