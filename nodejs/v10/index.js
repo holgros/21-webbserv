@@ -17,7 +17,7 @@ let users = [
 ]
 
 app.get("/", function(req, res) {
-    res.send("Välkommen till rotsidan. Dokumentation om det här API:et kommer strax...");
+    res.sendFile(__dirname + "/dokumentation.html");
 });
 
 app.get("/users", function(req, res) {
