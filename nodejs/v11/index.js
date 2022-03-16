@@ -14,18 +14,30 @@ con = mysql.createConnection({
     database: "webbserverprogrammering" // ÄNDRA TILL NAMN PÅ ER EGEN DATABAS
 });
 
-
+const COLUMNS = ["firstname", "lastname", "userId", "passwd"];   // ÄNDRA TILL NAMN PÅ KOLUMNER I ER EGEN TABELL
 
 // grundläggande exempel - returnera en databastabell som JSON
 app.get("/users", function(req, res) {
     let sql = "SELECT * FROM users";    // ÄNDRA TILL NAMN PÅ ER EGEN TABELL (om den heter något annat än "users")
-    // TODO: Hantera query-parametrar (senare i veckan)
-    
+    let condition = createCondition(req.query); // output t.ex. " WHERE lastname='Rosencrantz'"
+    console.log(sql + condition);       // t.ex. SELECT * FROM users WHERE lastname="Rosencrantz"
     // skicka query till databasen
-    con.query(sql, function(err, result, fields) {
+    con.query(sql+condition, function(err, result, fields) {
         res.send(result);
     });
 });
+
+let createCondition = function(query) { // skapar ett WHERE-villkor utifrån query-parametrar
+    console.log(query);
+    let output = " WHERE ";
+    for (let key in query) {
+        if (COLUMNS.includes(key)) {            // om vi har ett kolumnnamn i vårt query
+            output += `${key}="${query[key]}"`; // t.ex. lastname="Rosencrantz"
+            return output;
+        }
+    }
+    return "";  // om query är tomt eller inte är relevant för vår databastabell - returnera en tom sträng
+}
 
 // route-parameter, dvs. filtrera efter ID i URL:en
 app.get("/users/:id", function(req, res) {
