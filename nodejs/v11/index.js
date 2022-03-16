@@ -32,11 +32,15 @@ let createCondition = function(query) { // skapar ett WHERE-villkor utifrån que
     let output = " WHERE ";
     for (let key in query) {
         if (COLUMNS.includes(key)) {            // om vi har ett kolumnnamn i vårt query
-            output += `${key}="${query[key]}"`; // t.ex. lastname="Rosencrantz"
-            return output;
+            output += `${key}="${query[key]}" OR `; // t.ex. lastname="Rosencrantz"
         }
     }
-    return "";  // om query är tomt eller inte är relevant för vår databastabell - returnera en tom sträng
+    if (output.length == 7) {   // " WHERE "
+        return "";  // om query är tomt eller inte är relevant för vår databastabell - returnera en tom sträng
+    }
+    else {
+        return output.substring(0, output.length - 4);  // ta bort sista " OR "
+    }
 }
 
 // route-parameter, dvs. filtrera efter ID i URL:en
