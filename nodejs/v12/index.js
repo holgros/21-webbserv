@@ -19,6 +19,18 @@ con = mysql.createConnection({
 app.use(express.json());    // för att läsa data från klient och för att skicka svar (ersätter bodyparser som vi använt någon gång tidigare)
 
 app.post("/users", function(req, res) {
+    // kod för att validera input
+    if (!req.body.userId) {
+        res.status(400).send("userId required!");
+        return; // avslutar metoden
+    }
+    let fields = ["firstname", "lastname", "userId", "passwd"];  // ändra eventuellt till namn på er egen databastabells kolumner
+    for (let key in req.body) {
+        if (!fields.includes(key)) {
+            res.status(400).send("Unknown field: " + key);
+            return; // avslutar metoden
+        }
+    }
     // kod för att hantera anrop
     let sql = `INSERT INTO users (firstname, lastname, userId, passwd)
     VALUES ('${req.body.firstname}', 
