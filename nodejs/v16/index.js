@@ -75,10 +75,14 @@ app.post("/login", function(req, res) {
         console.log(passwordHash);
         console.log(result[0].passwd);
         if (result[0].passwd == passwordHash) {
-            res.send("Succé!");
+            res.send({  // OBS: returnera inte passwd!
+                firstname: result[0].firstname, 
+                lastname: result[0].lastname,
+                userId: result[0].userId
+            });
         }
         else {
-            res.send("Fiasko!");
+            res.sendStatus(401);
         }
     });
 });
