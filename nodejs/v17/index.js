@@ -64,15 +64,22 @@ app.get("/users", function(req, res) {
     console.log(token);
     
     // avkoda token
-    let decoded
+    let decoded;
     try {
         decoded = jwt.verify(token, "EnHemlighetSomIngenKanGissaXyz123%&/")
     } catch (err) {
         console.log(err) //Logga felet, för felsökning på servern.
-        res.status(401).send("Invalid auth token")
+        res.status(401).send("Invalid auth token");
+        return;
     }
     
     //Gör något bra med decoded.
-    res.send("Tjena " + decoded.name + " " + decoded.lastname);
+    //res.send("Tjena " + decoded.name + " " + decoded.lastname);
+    let sql = "SELECT * FROM users";    // ÄNDRA TILL NAMN PÅ ER EGEN TABELL (om den heter något annat än "users")
+    console.log(sql);
+    // skicka query till databasen
+    con.query(sql, function(err, result, fields) {
+        res.send(result);
+    });
     
 });
